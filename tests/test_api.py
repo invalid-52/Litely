@@ -179,3 +179,17 @@ def test_highlight_auto_detect(client):
     assert data["success"] is True
     assert data["data"]["language"] == "go"
 
+
+def test_cors_headers_and_options_preflight(client):
+    # Test OPTIONS preflight
+    options_res = client.open("/api/v1/highlight", method="OPTIONS")
+    assert options_res.status_code == 200
+    assert options_res.headers.get("Access-Control-Allow-Origin") == "*"
+    assert "POST" in options_res.headers.get("Access-Control-Allow-Methods", "")
+
+    # Test GET / POST response headers
+    get_res = client.get("/api/v1/health")
+    assert get_res.status_code == 200
+    assert get_res.headers.get("Access-Control-Allow-Origin") == "*"
+
+

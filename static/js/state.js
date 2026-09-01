@@ -4,6 +4,32 @@
 
 const STORAGE_KEY = 'litely_state_v1';
 
+export function getApiBaseUrl() {
+  if (typeof window !== 'undefined') {
+    if (window.LITELY_API_BASE) return window.LITELY_API_BASE.replace(/\/$/, '');
+    try {
+      const stored = localStorage.getItem('litely_api_endpoint');
+      if (stored) return stored.replace(/\/$/, '');
+    } catch (_) {}
+    if (window.location && window.location.hostname && window.location.hostname.endsWith('github.io')) {
+      return 'https://litely.onrender.com';
+    }
+  }
+  return '';
+}
+
+export function setApiBaseUrl(url) {
+  try {
+    if (url) {
+      localStorage.setItem('litely_api_endpoint', url.trim());
+      if (typeof window !== 'undefined') window.LITELY_API_BASE = url.trim();
+    } else {
+      localStorage.removeItem('litely_api_endpoint');
+      if (typeof window !== 'undefined') window.LITELY_API_BASE = '';
+    }
+  } catch (_) {}
+}
+
 const DEFAULT_SETTINGS = {
   font_family: 'JetBrains Mono',
   font_size: 14,

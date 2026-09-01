@@ -2,7 +2,7 @@
  * LITELY Drag and Drop File Handler
  */
 
-import { store } from './state.js';
+import { store, getApiBaseUrl } from './state.js';
 import { toast } from './toast.js';
 
 class DragDropHandler {
@@ -85,7 +85,7 @@ class DragDropHandler {
 
       const dotIdx = filename.lastIndexOf('.');
       if (dotIdx !== -1) {
-        fetch('/api/v1/detect-language', {
+        fetch(`${getApiBaseUrl()}/api/v1/detect-language`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ code: content, filename }),

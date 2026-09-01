@@ -4,7 +4,7 @@ Beautiful code visualization and syntax highlighting platform.
 """
 
 from typing import Optional
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 from litely.config import config_by_name, Config
 
@@ -32,16 +32,31 @@ def create_app(config_name: Optional[str] = None) -> Flask:
     app.register_blueprint(web_bp)
     app.register_blueprint(legacy_bp)
 
+    @app.before_request
+    def handle_preflight():
+        if request.method == "OPTIONS":
+            response = app.make_default_options_response()
+            response.headers["Access-Control-Allow-Origin"] = "*"
+            response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+            response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With"
+            response.headers["Access-Control-Max-Age"] = "86400"
+            return response
+
     @app.after_request
     def add_security_headers(response):
+        # Enable CORS for cross-origin API consumers (e.g. GitHub Pages)
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With"
+
         response.headers.setdefault(
             "Content-Security-Policy",
-            "default-src 'self'; "
-            "script-src 'self'; "
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+            "default-src 'self' https://*.github.io https://*.onrender.com; "
+            "script-src 'self' 'unsafe-inline' https://*.github.io; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.github.io; "
             "font-src 'self' https://fonts.gstatic.com data:; "
-            "img-src 'self' blob: data:; "
-            "connect-src 'self'; "
+            "img-src 'self' blob: data: https://*.github.io https://*.onrender.com; "
+            "connect-src 'self' https://*.github.io https://*.onrender.com; "
             "object-src 'none'; "
             "base-uri 'self'; "
             "frame-ancestors 'none'"

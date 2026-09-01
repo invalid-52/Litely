@@ -4,7 +4,7 @@
  * tab indentation, selection, undo/redo, and bidirectional state synchronization.
  */
 
-import { store } from './state.js';
+import { store, getApiBaseUrl } from './state.js';
 
 // Map LITELY language IDs to CodeMirror mode configurations
 const MODE_MAP = {
@@ -218,7 +218,7 @@ class CodeEditor {
     this.detectAbortController = new AbortController();
 
     try {
-      const res = await fetch('/api/v1/detect-language', {
+      const res = await fetch(`${getApiBaseUrl()}/api/v1/detect-language`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

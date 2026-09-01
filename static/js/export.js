@@ -4,7 +4,7 @@
  * Includes specialized Rich-Text Word & Google Docs clipboard formatter with line numbers.
  */
 
-import { store } from './state.js';
+import { store, getApiBaseUrl } from './state.js';
 import { preview } from './preview.js';
 import { toast } from './toast.js';
 
@@ -89,7 +89,7 @@ class ExportManager {
       return preview.currentWordHtml;
     }
 
-    const res = await fetch('/api/v1/highlight', {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/highlight`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -189,7 +189,7 @@ class ExportManager {
   }
 
   async exportSVG(filename = 'litely-code.svg') {
-    const res = await fetch('/api/v1/export', {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/export`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -206,7 +206,7 @@ class ExportManager {
   }
 
   async exportHTML(filename = 'litely-code.html') {
-    const res = await fetch('/api/v1/export', {
+    const res = await fetch(`${getApiBaseUrl()}/api/v1/export`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
