@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ app_name }} &mdash; {{ tagline }}</title>
+  <meta name="description" content="Transform your source code into beautiful, customizable, shareable visual code artifacts.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+  <link rel="alternate icon" href="/static/favicon.ico">
+
+  <!-- Google Fonts for Code Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Vendored CodeMirror CSS -->
+  <link rel="stylesheet" href="/static/vendor/codemirror/codemirror.min.css">
+  <link rel="stylesheet" href="/static/vendor/codemirror/addon-dialog.css">
+
+  <!-- LITELY Design System Stylesheet -->
+  <link rel="stylesheet" href="/static/css/litely.css">
+</head>
+<body>
+  <div class="litely-app" id="litelyAppRoot">
+
+    <!-- =====================================================================
+         1. LANDING / PROGRESSIVE DISCLOSURE ENTRY VIEW
+         ===================================================================== -->
+    <div class="litely-landing-view" id="landingView" style="display: flex;">
+      <!-- Minimalist Landing Header -->
+      <header class="landing-header">
+        <div class="litely-brand">
+          <div class="litely-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <span class="litely-title">{{ app_name }}</span>
+        </div>
+        <div class="landing-header-actions">
+          <button class="btn btn-ghost btn-icon btn-sm" id="landingAppThemeToggle" title="Toggle App Theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Center Hero & Entry Cards -->
+      <main class="landing-hero">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>Next-Gen Visual Code Studio</span>
+        </div>
+
+        <h1 class="hero-title">Beautiful code. <span class="gradient-text">Instantly.</span></h1>
+        <p class="hero-subtitle">Transform raw source code into publication-ready visual artifacts, standalone embeds, and rich-text cards for Word and Docs.</p>
+
+        <!-- Two Equal Primary Action Cards -->
+        <div class="entry-cards-grid">
+          <!-- Card 1: Paste Code -->
+          <div class="entry-card" id="landingPasteCard" tabindex="0" role="button" aria-label="Paste code from clipboard or type directly">
+            <div class="entry-card-icon paste-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg>
+            </div>
+            <div class="entry-card-content">
+              <h2 class="entry-card-title">Paste Code</h2>
+              <p class="entry-card-desc">Start with code from your clipboard or type directly in the editor.</p>
+            </div>
+            <div class="entry-card-action">
+              <span>Open Editor &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Upload File -->
+          <div class="entry-card" id="landingUploadCard" tabindex="0" role="button" aria-label="Upload a local source code file">
+            <div class="entry-card-icon upload-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <div class="entry-card-content">
+              <h2 class="entry-card-title">Upload File</h2>
+              <p class="entry-card-desc">Drop any local source file or browse your device.</p>
+            </div>
+            <div class="entry-card-action">
+              <span>Browse Files &rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curated Sample Presets Bar -->
+        <div class="landing-samples">
+          <span class="samples-label">Or explore samples:</span>
+          <div class="samples-chips">
+            <button class="sample-chip" data-sample="python">
+              <span class="chip-lang-dot" style="background-color: #3572A5;"></span>
+              <span>Python</span>
+            </button>
+            <button class="sample-chip" data-sample="typescript">
+              <span class="chip-lang-dot" style="background-color: #3178c6;"></span>
+              <span>TypeScript</span>
+            </button>
+            <button class="sample-chip" data-sample="rust">
+              <span class="chip-lang-dot" style="background-color: #dea584;"></span>
+              <span>Rust</span>
+            </button>
+            <button class="sample-chip" data-sample="sql">
+              <span class="chip-lang-dot" style="background-color: #e38c00;"></span>
+              <span>SQL</span>
+            </button>
+            <button class="sample-chip" data-sample="go">
+              <span class="chip-lang-dot" style="background-color: #00ADD8;"></span>
+              <span>Go</span>
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <footer class="landing-footer">
+        <span>LITELY V1 &bull; 100% Client-Side Privacy &bull; Zero Code Execution</span>
+      </footer>
+    </div>
+
+
+    <!-- =====================================================================
+         2. WORKSPACE VIEW (EDITOR + DOMINANT PREVIEW + COLLAPSIBLE CUSTOMIZER)
+         ===================================================================== -->
+    <div class="litely-workspace-view" id="workspaceView" style="display: none;">
+      <!-- WORKSPACE TOP NAVIGATION HEADER -->
+      <header class="litely-header">
+        <div class="litely-brand" id="brandHomeBtn" role="button" tabindex="0" title="Return to Home">
+          <div class="litely-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <span class="litely-title">{{ app_name }}</span>
+        </div>
+
+        <!-- Center Document Controls -->
+        <div class="header-doc-controls">
+          <input type="text" id="filenameInput" class="litely-input filename-input" placeholder="filename.ext" value="main.py" title="Artifact Filename">
+          
+          <select id="languageSelect" class="litely-select lang-select" title="Programming Language">
+            <option value="auto">Auto Detect</option>
+            <optgroup label="Popular">
+              {% for lang in popular_languages %}
+              <option value="{{ lang.id }}" {% if lang.id == 'python' %}selected{% endif %}>{{ lang.display_name }}</option>
+              {% endfor %}
+            </optgroup>
+            <optgroup label="All Languages">
+              {% for lang in languages %}
+              <option value="{{ lang.id }}">{{ lang.display_name }}</option>
+              {% endfor %}
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- Right Header Actions -->
+        <div class="litely-header-actions">
+          <!-- Customize Drawer Toggle Button -->
+          <button class="btn btn-secondary btn-sm" id="toggleCustomizerBtn" title="Toggle Customization Panel">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Customize</span>
+          </button>
+
+          <!-- Copy Formatted Quick Button -->
+          <button class="btn btn-secondary btn-sm" data-export-action="copy-word" title="Copy formatted code for Word, Docs, Notion, Email (⌘⇧W)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            <span>Copy Formatted</span>
+          </button>
+
+          <!-- Export Dropdown -->
+          <div class="dropdown-container">
+            <button class="btn btn-primary btn-sm" id="exportMenuBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Export ▾</span>
+            </button>
+            <div class="dropdown-menu" id="exportMenuDropdown">
+              <button class="dropdown-item" data-export-action="copy-word">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span>Copy Formatted (Word / Docs)</span>
+              </button>
+              <button class="dropdown-item" data-export-action="png">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                <span>Export PNG (High-DPI 2x)</span>
+              </button>
+              <button class="dropdown-item" data-export-action="svg">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                <span>Export SVG Vector</span>
+              </button>
+              <button class="dropdown-item" data-export-action="html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                <span>Export Standalone HTML</span>
+              </button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" data-export-action="copy-image">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy Card Image</span>
+              </button>
+              <button class="dropdown-item" data-export-action="copy-code">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy Raw Code</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Command Palette Trigger -->
+          <button class="btn btn-ghost btn-icon btn-sm" id="openPaletteBtn" title="Command Palette (Ctrl/Cmd + K)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+
+          <!-- Shortcuts Help Trigger -->
+          <button class="btn btn-ghost btn-icon btn-sm" id="openShortcutsBtn" title="Keyboard Shortcuts (?)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </button>
+
+          <!-- App Theme Toggle -->
+          <button class="btn btn-ghost btn-icon btn-sm" id="appThemeModeToggle" title="Toggle App UI Theme">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- WORKSPACE 2-PANE SPLIT: EDITOR + DOMINANT PREVIEW -->
+      <main class="litely-workspace">
+        <!-- LEFT: CODE EDITOR PANE -->
+        <section class="litely-editor-pane" id="codeEditorPane" aria-label="Source Code Editor">
+          <div class="pane-header">
+            <div class="pane-title">
+              <div class="segmented-control" style="width: auto;">
+                <button class="segmented-btn active" id="editorTabSource">Source Code</button>
+                <button class="segmented-btn" id="editorTabHtml">HTML Output</button>
+              </div>
+            </div>
+
+            <div class="pane-actions">
+              <!-- Upload file trigger in workspace -->
+              <button class="btn btn-ghost btn-sm" id="uploadFileBtn" title="Open source file from computer">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span>Open File</span>
+              </button>
+              <input type="file" id="fileUploadInput" style="display: none;" accept=".py,.js,.ts,.tsx,.jsx,.rs,.go,.cpp,.c,.cs,.java,.kt,.swift,.sql,.html,.css,.json,.yaml,.yml,.toml,.md,.sh">
+            </div>
+          </div>
+
+          <div class="editor-wrapper">
+            <!-- 1. CodeMirror Mount -->
+            <div id="sourceEditorContainer" style="width: 100%; height: 100%; display: flex; flex-direction: column;"></div>
+
+            <!-- 2. HTML Output Viewer -->
+            <div id="htmlOutputContainer" style="width: 100%; height: 100%; display: none; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background: var(--bg-surface-raised); border-bottom: 1px solid var(--border-subtle);">
+                <span style="font-size: 11px; color: var(--text-secondary);">Self-Contained Embeddable HTML (with inline CSS)</span>
+                <button class="btn btn-secondary btn-sm" id="copyHtmlCodeBtn" data-export-action="copy-html" style="font-size: 11px; padding: 2px 8px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  <span>Copy HTML</span>
+                </button>
+              </div>
+              <textarea id="htmlOutputTextarea" class="litely-html-output" readonly spellcheck="false" placeholder="Generating HTML snippet..."></textarea>
+            </div>
+          </div>
+
+          <div class="editor-stats-bar">
+            <div style="display: flex; gap: 1rem;">
+              <span id="editorLineCount">0 lines</span>
+              <span id="editorCharCount">0 chars</span>
+            </div>
+            <div>
+              <span id="detectedLanguageBadge" style="color: var(--brand-accent);">Auto: Python</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT: LIVE PREVIEW PANE (DOMINANT CENTERPIECE) -->
+        <section class="litely-preview-pane" aria-label="Visual Code Artifact Preview">
+          <div class="pane-header">
+            <div class="pane-title" style="display: flex; align-items: center; gap: 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              <span>Live Preview</span>
+              <span id="previewLoadingSpinner" class="litely-spinner" style="display: none;" title="Updating preview..."></span>
+            </div>
+            <div class="pane-actions">
+              <button class="btn btn-ghost btn-sm" data-export-action="copy-image" title="Copy Card Image to Clipboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy Image</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="previewErrorIndicator" class="preview-error-indicator" role="status" aria-live="polite" style="display:none;"></div>
+
+          <div class="preview-viewport" id="previewViewport">
+            <!-- High Fidelity Stage Frame -->
+            <div class="litely-stage bg-preset-twilight" id="previewStage">
+              <!-- Dynamically populated code card -->
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- =====================================================================
+           3. COLLAPSIBLE CUSTOMIZATION DRAWER / SIDEBAR
+           ===================================================================== -->
+      <div class="customizer-backdrop" id="customizerBackdrop"></div>
+      <aside class="litely-customizer-drawer" id="customizerDrawer" aria-label="Customization Panel">
+        <div class="drawer-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <h2 style="font-size: 0.95rem; font-weight: 700;">Customize Artifact</h2>
+          </div>
+          <button class="btn btn-ghost btn-icon btn-sm" id="closeCustomizerBtn" title="Close Panel (ESC)">✕</button>
+        </div>
+
+        <nav class="customizer-tabs" role="tablist" aria-label="Customization Categories">
+          <button class="customizer-tab active" data-tab="appearance" role="tab" aria-selected="true" id="tab-appearance">Theme</button>
+          <button class="customizer-tab" data-tab="typography" role="tab" aria-selected="false" id="tab-typography">Type</button>
+          <button class="customizer-tab" data-tab="layout" role="tab" aria-selected="false" id="tab-layout">Layout</button>
+          <button class="customizer-tab" data-tab="code" role="tab" aria-selected="false" id="tab-code">Code</button>
+        </nav>
+
+        <div class="customizer-content">
+          <!-- TAB 1: APPEARANCE -->
+          <div id="tabSectionAppearance" class="control-group" role="tabpanel" aria-labelledby="tab-appearance">
+            <div class="control-group">
+              <label class="control-label">Syntax Theme</label>
+              <div class="theme-grid">
+                {% for theme in dark_themes %}
+                <div class="theme-card-option {% if theme.id == 'github-dark' %}active{% endif %}" data-theme-id="{{ theme.id }}" tabindex="0" role="button" aria-label="Select {{ theme.display_name }} Theme">
+                  <span class="theme-name">{{ theme.display_name }}</span>
+                  <div class="theme-swatches">
+                    {% for sw in theme.swatches %}
+                    <span class="theme-swatch-dot" style="background-color: {{ sw }};"></span>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endfor %}
+                {% for theme in light_themes %}
+                <div class="theme-card-option" data-theme-id="{{ theme.id }}" tabindex="0" role="button" aria-label="Select {{ theme.display_name }} Theme">
+                  <span class="theme-name">{{ theme.display_name }}</span>
+                  <div class="theme-swatches">
+                    {% for sw in theme.swatches %}
+                    <span class="theme-swatch-dot" style="background-color: {{ sw }};"></span>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="control-group" style="margin-top: 1.25rem;">
+              <label class="control-label">Backdrop Preset</label>
+              <div class="bg-grid">
+                <button class="bg-preset-btn bg-preset-twilight active" data-bg="twilight" title="Twilight Glow"></button>
+                <button class="bg-preset-btn bg-preset-midnight" data-bg="midnight" title="Midnight Slate"></button>
+                <button class="bg-preset-btn bg-preset-aurora" data-bg="aurora" title="Aurora Teal"></button>
+                <button class="bg-preset-btn bg-preset-sunset" data-bg="sunset" title="Sunset Magenta"></button>
+                <button class="bg-preset-btn bg-preset-matrix" data-bg="matrix" title="Matrix Cyberpunk"></button>
+                <button class="bg-preset-btn bg-preset-carbon" data-bg="carbon" title="Carbon Matte"></button>
+                <button class="bg-preset-btn bg-preset-snow" data-bg="snow" title="Snow Studio"></button>
+                <button class="bg-preset-btn bg-preset-transparent" data-bg="transparent" title="Transparent Grid"></button>
+              </div>
+            </div>
+
+            <div class="control-group" style="margin-top: 1.25rem;">
+              <label class="control-label">Window Style</label>
+              <div class="segmented-control">
+                <button class="segmented-btn active" data-chrome="mac">macOS</button>
+                <button class="segmented-btn" data-chrome="windows">Windows</button>
+                <button class="segmented-btn" data-chrome="none">None</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: TYPOGRAPHY -->
+          <div id="tabSectionTypography" class="control-group" role="tabpanel" aria-labelledby="tab-typography" style="display: none;">
+            <div class="control-group">
+              <label class="control-label" for="fontFamilySelect">Monospace Font</label>
+              <select id="fontFamilySelect" class="litely-select">
+                <option value="JetBrains Mono">JetBrains Mono</option>
+                <option value="Fira Code">Fira Code</option>
+                <option value="IBM Plex Mono">IBM Plex Mono</option>
+                <option value="Source Code Pro">Source Code Pro</option>
+                <option value="Menlo">Menlo / Monaco</option>
+                <option value="Consolas">Consolas</option>
+              </select>
+            </div>
+
+            <div class="control-group" style="margin-top: 1.25rem;">
+              <div class="control-label">
+                <span>Font Size</span>
+                <span class="control-value-badge" id="fontSizeBadge">14px</span>
+              </div>
+              <input type="range" id="fontSizeSlider" class="litely-slider" min="11" max="22" value="14" step="1">
+            </div>
+
+            <div class="control-group" style="margin-top: 1.25rem;">
+              <div class="control-label">
+                <span>Line Height</span>
+                <span class="control-value-badge" id="lineHeightBadge">1.5x</span>
+              </div>
+              <input type="range" id="lineHeightSlider" class="litely-slider" min="1.2" max="2.2" value="1.5" step="0.1">
+            </div>
+          </div>
+
+          <!-- TAB 3: LAYOUT -->
+          <div id="tabSectionLayout" class="control-group" role="tabpanel" aria-labelledby="tab-layout" style="display: none;">
+            <div class="control-group">
+              <div class="control-label">
+                <span>Card Padding</span>
+                <span class="control-value-badge" id="paddingBadge">32px</span>
+              </div>
+              <input type="range" id="paddingSlider" class="litely-slider" min="16" max="80" value="32" step="4">
+            </div>
+
+            <div class="control-group" style="margin-top: 1.25rem;">
+              <div class="control-label">
+                <span>Corner Radius</span>
+                <span class="control-value-badge" id="radiusBadge">12px</span>
+              </div>
+              <input type="range" id="radiusSlider" class="litely-slider" min="0" max="28" value="12" step="2">
+            </div>
+
+            <div class="control-group" style="margin-top: 1.25rem;">
+              <label class="control-label">Elevation Shadow</label>
+              <div class="segmented-control">
+                <button class="segmented-btn" data-shadow="none">None</button>
+                <button class="segmented-btn" data-shadow="soft">Soft</button>
+                <button class="segmented-btn active" data-shadow="medium">Medium</button>
+                <button class="segmented-btn" data-shadow="dramatic">Deep</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: CODE OPTIONS -->
+          <div id="tabSectionCode" class="control-group" role="tabpanel" aria-labelledby="tab-code" style="display: none;">
+            <div class="toggle-row" id="toggleLineNumbers" role="switch" aria-checked="true" tabindex="0">
+              <span class="toggle-text">Show Line Numbers</span>
+              <div class="toggle-switch active"><div class="toggle-knob"></div></div>
+            </div>
+
+            <div class="toggle-row" id="toggleWordWrap" role="switch" aria-checked="false" tabindex="0">
+              <span class="toggle-text">Word Wrap Lines</span>
+              <div class="toggle-switch"><div class="toggle-knob"></div></div>
+            </div>
+
+            <div class="toggle-row" id="toggleLanguageBadge" role="switch" aria-checked="true" tabindex="0">
+              <span class="toggle-text">Show Language Badge</span>
+              <div class="toggle-switch active"><div class="toggle-knob"></div></div>
+            </div>
+
+            <div class="toggle-row" id="toggleWatermark" role="switch" aria-checked="false" tabindex="0">
+              <span class="toggle-text">LITELY Watermark</span>
+              <div class="toggle-switch"><div class="toggle-knob"></div></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- =====================================================================
+         4. COMMAND PALETTE MODAL (⌘K)
+         ===================================================================== -->
+    <div class="modal-backdrop" id="paletteModalBackdrop" role="dialog" aria-modal="true" aria-label="Command Palette">
+      <div class="palette-modal">
+        <div class="palette-search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="paletteSearchInput" class="palette-input" placeholder="Type a command, theme, language, or sample..." autocomplete="off">
+        </div>
+        <div class="palette-results" id="paletteResultsList">
+          <!-- Populated securely with createElement -->
+        </div>
+        <div class="palette-footer">
+          <span>Navigate: <kbd>↑</kbd> <kbd>↓</kbd></span>
+          <span>Select: <kbd>↵</kbd></span>
+          <span>Close: <kbd>ESC</kbd></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- =====================================================================
+         5. KEYBOARD SHORTCUTS MODAL (?)
+         ===================================================================== -->
+    <div class="modal-backdrop" id="shortcutsModalBackdrop" role="dialog" aria-modal="true" aria-label="Keyboard Shortcuts">
+      <div class="palette-modal" style="max-width: 480px;">
+        <div style="padding: 1.25rem; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="font-size: 1rem; font-weight: 700;">Keyboard Shortcuts</h3>
+          <kbd style="font-size: 11px; opacity: 0.7;">ESC to close</kbd>
+        </div>
+        <div style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Command Palette</span>
+            <kbd class="palette-item-shortcut">⌘K / Ctrl+K</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Copy Formatted (Word / Docs)</span>
+            <kbd class="palette-item-shortcut">⌘⇧W / Ctrl+Shift+W</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Force Preview Refresh</span>
+            <kbd class="palette-item-shortcut">⌘↵ / Ctrl+Enter</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Export PNG Image</span>
+            <kbd class="palette-item-shortcut">⌘⇧P / Ctrl+Shift+P</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Export SVG Vector</span>
+            <kbd class="palette-item-shortcut">⌘⇧S / Ctrl+Shift+S</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Export Standalone HTML</span>
+            <kbd class="palette-item-shortcut">⌘⇧E / Ctrl+Shift+E</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Copy Raw Code</span>
+            <kbd class="palette-item-shortcut">⌘⇧C / Ctrl+Shift+C</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Toggle Customizer Panel</span>
+            <kbd class="palette-item-shortcut">⌘/ / Ctrl+/</kbd>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-secondary);">Shortcuts Help Dialog</span>
+            <kbd class="palette-item-shortcut">?</kbd>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. TOAST CONTAINER -->
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <!-- Vendored CodeMirror Core & Addons Scripts -->
+  <script src="/static/vendor/codemirror/codemirror.min.js"></script>
+  <script src="/static/vendor/codemirror/mode-python.js"></script>
+  <script src="/static/vendor/codemirror/mode-javascript.js"></script>
+  <script src="/static/vendor/codemirror/mode-rust.js"></script>
+  <script src="/static/vendor/codemirror/mode-go.js"></script>
+  <script src="/static/vendor/codemirror/mode-sql.js"></script>
+  <script src="/static/vendor/codemirror/mode-clike.js"></script>
+  <script src="/static/vendor/codemirror/mode-xml.js"></script>
+  <script src="/static/vendor/codemirror/mode-css.js"></script>
+  <script src="/static/vendor/codemirror/mode-htmlmixed.js"></script>
+  <script src="/static/vendor/codemirror/mode-markdown.js"></script>
+  <script src="/static/vendor/codemirror/addon-matchbrackets.js"></script>
+  <script src="/static/vendor/codemirror/addon-closebrackets.js"></script>
+  <script src="/static/vendor/codemirror/addon-activeline.js"></script>
+  <script src="/static/vendor/codemirror/addon-dialog.js"></script>
+  <script src="/static/vendor/codemirror/addon-searchcursor.js"></script>
+  <script src="/static/vendor/codemirror/addon-search.js"></script>
+
+  <!-- Application JS Entry Point (ES Module) -->
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

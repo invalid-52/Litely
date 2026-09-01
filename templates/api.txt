@@ -1,0 +1,61 @@
+# LITELY V1 API Documentation
+# "Beautiful code. Instantly."
+
+## REST API v1 (Recommended)
+
+1. Highlight Code:
+   POST /api/v1/highlight
+   Content-Type: application/json
+   Body:
+   {
+     "code": "print('Hello LITELY')",
+     "language": "python",
+     "theme": "github-dark",
+     "filename": "main.py",
+     "visualization": {
+       "font_family": "JetBrains Mono",
+       "font_size": 14,
+       "line_height": 1.5,
+       "show_line_numbers": true,
+       "padding": 32,
+       "border_radius": 12,
+       "window_chrome": "mac"
+     }
+   }
+
+2. Detect Language:
+   POST /api/v1/detect-language
+   Content-Type: application/json
+   Body:
+   {
+     "code": "const x: string = 'hello';",
+     "filename": "index.ts"
+   }
+
+3. Export Artifact:
+   POST /api/v1/export
+   Content-Type: application/json
+   Body:
+   {
+     "code": "fn main() { println!(\"Hello\"); }",
+     "language": "rust",
+     "theme": "dracula",
+     "format": "html"  // "html" | "svg" | "raw"
+   }
+
+4. List Supported Languages:
+   GET /api/v1/languages
+
+5. List Curated Themes:
+   GET /api/v1/themes
+
+6. Service Health:
+   GET /api/v1/health
+
+
+## Legacy Compatibility API:
+   GET or POST to /api with parameters:
+   * code: source code to format
+   * lexer: language name (e.g. python, rust, javascript)
+   * style: theme name (e.g. github-dark, dracula, one-dark)
+   * linenos: if non-empty, includes line numbers
