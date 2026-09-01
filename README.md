@@ -1,4 +1,3 @@
-````markdown
 # 🌌 LITELY | Code Visualization & Developer Presentation Studio
 
 **LITELY** is a lightweight developer-focused code visualization studio that transforms raw source code into polished, customizable, presentation-ready visuals.
@@ -103,7 +102,6 @@ LITELY turns source code into a configurable visual document.
           Copy / Export / Share
 ```
 
----
 
 ## 🚀 Core Features
 
