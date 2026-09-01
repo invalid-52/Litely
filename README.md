@@ -1,49 +1,115 @@
-Yes — and given that you built **LITELY in roughly 2–3 hours**, I would actually position it as a **small but unusually polished developer-tool project**, rather than pretending it is a huge platform.
-
-Here is the **direct copy-paste README** I recommend:
-
 ````markdown
-# LITELY
+# 🌌 LITELY | Code Visualization & Developer Presentation Studio
 
-### Beautiful code. Instantly.
+**LITELY** is a lightweight developer-focused code visualization studio that transforms raw source code into polished, customizable, presentation-ready visuals.
 
-LITELY is a lightweight developer tool for turning source code into clean, customizable, presentation-ready code visuals.
+Built around a simple idea:
 
-Paste code, drop a source file, or start from a sample. LITELY detects the language, highlights the code, lets you customize the visual presentation, and exports the result as PNG, SVG, HTML, or raw code.
+> **Code should be easy to write, easy to style, and worth sharing.**
 
-It is designed for developers, students, educators, technical writers, documentation authors, and anyone who wants to share code without settling for a plain editor screenshot.
-
-🌐 **Live:** https://litely.onrender.com/
+LITELY combines a browser-based code editor, automatic language detection, syntax highlighting, visual customization, live preview, rich clipboard support, and multi-format export into one focused workflow.
 
 ---
 
-## ✨ What LITELY Does
+## 💡 Why I Built LITELY
+
+Developers constantly need to share code across documentation, presentations, tutorials, portfolios, technical articles, classrooms, and social platforms.
+
+The usual workflow is often:
 
 ```text
-Source Code
-     ↓
-Language Detection
-     ↓
-Syntax Highlighting
-     ↓
-Visual Customization
-     ↓
-Live Preview
-     ↓
-Copy / Export / Share
+Open IDE
+   ↓
+Resize / clean the editor
+   ↓
+Take screenshot
+   ↓
+Crop it
+   ↓
+Fix formatting
+   ↓
+Try another tool
+   ↓
+Share
 ````
 
-The goal is simple:
+LITELY simplifies this into:
 
-> **Take code that is technically correct and make it presentation-ready in seconds.**
+```text
+Code
+ ↓
+Style
+ ↓
+Preview
+ ↓
+Export
+ ↓
+Share
+```
+
+The project focuses on removing the unnecessary gap between **writing code** and **presenting code professionally**.
 
 ---
 
-# 🚀 Features
+## 🛑 Problem Statement
 
-## 🧑‍💻 Code Editor
+Code screenshots are convenient, but they are not always ideal.
 
-A full CodeMirror-based editing experience with:
+Traditional approaches often introduce:
+
+* IDE interface clutter
+* Inconsistent visual styling
+* Poor portability
+* Difficult resizing
+* Loss of selectable text
+* Manual formatting work
+* Separate tools for editing, styling, and exporting
+
+LITELY provides a single workspace where the source code remains the source of truth while its presentation can be customized independently.
+
+---
+
+## 🎯 Solution
+
+LITELY turns source code into a configurable visual document.
+
+```text
+                 SOURCE
+                    │
+                    ▼
+          ┌─────────────────┐
+          │   CodeMirror    │
+          │     Editor      │
+          └────────┬────────┘
+                   │
+                   ▼
+          Language Detection
+                   │
+                   ▼
+          Syntax Highlighting
+                   │
+                   ▼
+         Visual Configuration
+                   │
+                   ▼
+              Live Preview
+                   │
+          ┌────────┼────────┐
+          ▼        ▼        ▼
+         PNG      SVG      HTML
+          │        │        │
+          └────────┼────────┘
+                   ▼
+          Copy / Export / Share
+```
+
+---
+
+## 🚀 Core Features
+
+### 🧑‍💻 Advanced Code Editing
+
+LITELY provides a CodeMirror-powered editor with:
 
 * Syntax highlighting
 * Line numbers
@@ -52,47 +118,48 @@ A full CodeMirror-based editing experience with:
 * Automatic bracket closing
 * Tab indentation
 * Undo / Redo
-* Word wrap
-* Search and replace
-* Line and character statistics
-
-LITELY is designed to remain useful as an editor while simultaneously acting as a visual code composer.
+* Search and Replace
+* Word wrapping
+* Line statistics
+* Character statistics
+* Keyboard shortcuts
 
 ---
 
-## 🔍 Automatic Language Detection
+### 🔎 Automatic Language Detection
 
-LITELY can identify the programming language from multiple signals.
+LITELY can determine the programming language from multiple sources instead of relying on a single detection method.
 
 ```text
-Manual Language Selection
-          ↓
+Manual Selection
+       │
+       ▼
 File Extension
-          ↓
-Shebang
-          ↓
+       │
+       ▼
+Shebang Detection
+       │
+       ▼
 Syntax Signatures
-          ↓
+       │
+       ▼
 Lexer Detection
-          ↓
-Detected Language + Confidence
+       │
+       ▼
+Language + Confidence
 ```
 
-This makes drag-and-drop workflows much faster.
-
-Instead of forcing users to select a language before working, LITELY attempts to determine it automatically and provides the detected language and confidence information.
+This is particularly useful when importing source files directly.
 
 ---
 
-# 🎨 Visual Customization
+### 🎨 Visual Code Customization
 
-LITELY separates the source code from the way it is presented.
+The source code and its visual representation are treated separately.
 
 Customize:
 
 ### Themes
-
-Choose from multiple curated syntax themes, including:
 
 * GitHub Dark
 * Dracula
@@ -110,8 +177,6 @@ Choose from multiple curated syntax themes, including:
 
 ### Fonts
 
-Choose from developer-oriented fonts such as:
-
 * JetBrains Mono
 * Fira Code
 * IBM Plex Mono
@@ -119,108 +184,40 @@ Choose from developer-oriented fonts such as:
 * Menlo
 * Consolas
 
-You can also control:
+### Layout
 
 * Font size
 * Line height
 * Padding
 * Border radius
+* Shadow / elevation
 * Window chrome
 * Line numbers
 * Word wrapping
 * Language badge
 * Watermark
 
----
+### Background
 
-# 🖼️ Live Preview
-
-The visual result updates as you edit.
-
-The preview pipeline uses debounced rendering and request cancellation so rapid edits do not unnecessarily create competing preview requests.
-
-This keeps the editing experience responsive while preserving the most recent valid preview.
+* Solid backgrounds
+* Gradients
+* Transparent backgrounds
 
 ---
 
-# 📋 Rich Clipboard Support
+## 👀 Live Preview
 
-LITELY goes beyond copying plain source code.
+LITELY provides an interactive preview while the code and visual configuration are being changed.
 
-The clipboard pipeline can provide both:
+The preview pipeline uses debounced rendering and request cancellation to reduce unnecessary rendering work during rapid editing.
 
-```text
-text/plain
-+
-text/html
-```
-
-This allows syntax-highlighted code to be pasted into applications that support rich HTML clipboard content.
-
-Useful for:
-
-* Documentation
-* Presentations
-* Notes
-* Emails
-* Tutorials
-* Technical articles
-
-The code remains selectable instead of being locked inside a screenshot.
+This helps prevent stale preview requests from replacing newer results.
 
 ---
 
-# 📤 Export
+## 📁 Drag & Drop
 
-Create reusable code artifacts from your visual configuration.
-
-Supported formats include:
-
-### PNG
-
-High-resolution image export suitable for presentations, posts, tutorials, and documentation.
-
-### SVG
-
-Vector output for scalable graphics.
-
-### HTML
-
-Standalone HTML output containing the generated code presentation.
-
-### Raw
-
-Export the original source without visual transformations.
-
-### Clipboard
-
-Copy code or formatted HTML directly into other applications.
-
----
-
-# 🧩 Editor + HTML Output
-
-LITELY provides two complementary ways of working:
-
-```text
-SOURCE CODE
-     │
-     ▼
-HIGHLIGHTED REPRESENTATION
-     │
-     ▼
-HTML OUTPUT
-```
-
-The generated HTML can be copied as an embeddable artifact with styling included.
-
-This makes the project useful not only for creating visual code cards, but also for generating portable HTML representations of highlighted source code.
-
----
-
-# 📁 Drag & Drop
-
-Drop source files directly into the editor.
+Source files can be dropped directly into LITELY.
 
 For example:
 
@@ -233,15 +230,103 @@ index.html
 program.rs
 ```
 
-LITELY uses the file information and source contents to determine the appropriate language and load the document into the workspace.
+The application uses available file information and source-code characteristics to determine the appropriate language before loading the document.
 
 ---
 
-# 🧪 Built-in Samples
+## 📋 Rich Clipboard
 
-LITELY includes example snippets so users can immediately explore the interface.
+LITELY supports both plain and rich clipboard output.
 
-Current examples include languages such as:
+```text
+text/plain
+     +
+text/html
+```
+
+This allows highlighted code to be pasted into compatible applications while retaining its formatting.
+
+Unlike an image-only workflow, the resulting code can remain selectable and reusable.
+
+Useful for:
+
+* Documentation
+* Presentations
+* Emails
+* Tutorials
+* Technical articles
+* Notes
+* Knowledge bases
+
+---
+
+## 📤 Multi-Format Export
+
+LITELY supports multiple output formats for different workflows.
+
+| Output        | Best For                        |
+| ------------- | ------------------------------- |
+| **PNG**       | Presentations, posts, tutorials |
+| **SVG**       | Scalable graphics               |
+| **HTML**      | Web content and embeds          |
+| **RAW**       | Original source                 |
+| **Clipboard** | Fast sharing and rich pasting   |
+
+---
+
+## 🧩 Code → HTML
+
+LITELY can generate a portable HTML representation of highlighted source code.
+
+```text
+Source Code
+     ↓
+Language
+     ↓
+Syntax Tokens
+     ↓
+Theme
+     ↓
+Visual Configuration
+     ↓
+Standalone HTML
+```
+
+This allows the generated representation to be reused outside the application.
+
+---
+
+## ⌨️ Keyboard-First Workflow
+
+Common actions are accessible through keyboard shortcuts.
+
+### Command Palette
+
+```text
+Ctrl / Cmd + K
+```
+
+### Search
+
+```text
+Ctrl / Cmd + F
+```
+
+### Shortcut Reference
+
+```text
+?
+```
+
+The goal is to keep the workflow fast and minimize unnecessary navigation.
+
+---
+
+## 🧪 Built-in Samples
+
+LITELY includes ready-to-use source examples so users can immediately explore the application.
+
+Examples include:
 
 * Python
 * TypeScript
@@ -251,113 +336,48 @@ Current examples include languages such as:
 
 ---
 
-# ⌨️ Keyboard-First Workflow
-
-LITELY includes a command palette for quickly accessing actions.
-
-### Command Palette
+# 🏗️ System Architecture
 
 ```text
-Ctrl/Cmd + K
+                  ┌──────────────────┐
+                  │      USER        │
+                  └────────┬─────────┘
+                           │
+             ┌─────────────┼─────────────┐
+             │             │             │
+             ▼             ▼             ▼
+           Paste        File Drop      Samples
+             │             │             │
+             └─────────────┼─────────────┘
+                           ▼
+                    Code Document
+                           │
+                           ▼
+                  Language Detection
+                           │
+                           ▼
+                  Syntax Highlighting
+                           │
+                           ▼
+                 Visualization Engine
+                           │
+                           ▼
+                      Live Preview
+                           │
+              ┌────────────┼────────────┐
+              ▼            ▼            ▼
+             PNG          SVG          HTML
+              │            │            │
+              └────────────┼────────────┘
+                           ▼
+                   Clipboard / Export
 ```
-
-### Shortcuts
-
-```text
-Ctrl/Cmd + F
-```
-
-Search within the editor.
-
-```text
-?
-```
-
-Open the keyboard shortcut reference.
-
-The idea is to keep common workflows fast without forcing users to constantly navigate menus.
-
----
-
-# 🏗️ Architecture
-
-LITELY is built around a simple processing pipeline:
-
-```text
-                    USER
-                     │
-          ┌──────────┼──────────┐
-          │          │          │
-        Paste       File      Sample
-                    Drop
-          │          │          │
-          └──────────┼──────────┘
-                     ▼
-                Code Document
-                     │
-                     ▼
-             Language Detection
-                     │
-                     ▼
-             Syntax Highlighting
-                     │
-                     ▼
-            Visualization Config
-                     │
-                     ▼
-                 Preview
-                     │
-        ┌────────────┼────────────┐
-        ▼            ▼            ▼
-       PNG          SVG          HTML
-        │            │            │
-        └────────────┼────────────┘
-                     ▼
-             Copy / Export / Share
-```
-
----
-
-# 🧱 Technology Stack
-
-## Backend
-
-* Python
-* Flask
-* Pygments
-* Gunicorn
-
-## Frontend
-
-* HTML
-* CSS
-* JavaScript
-* CodeMirror
-
-## Rendering & Export
-
-* Pygments syntax tokenization
-* DOM-based rendering
-* Canvas-based PNG generation
-* SVG generation
-* Standalone HTML generation
-* Browser Clipboard APIs
-
-## Testing
-
-* pytest
-
-## Deployment
-
-* Docker
-* Gunicorn
-* Render-compatible deployment
 
 ---
 
 # 🔌 REST API
 
-LITELY exposes a versioned API:
+LITELY includes a versioned REST API under:
 
 ```text
 /api/v1
@@ -369,7 +389,7 @@ LITELY exposes a versioned API:
 GET /api/v1/health
 ```
 
-Provides service and capability information.
+Provides application/service status and capability information.
 
 ---
 
@@ -381,7 +401,7 @@ GET /api/v1/languages
 
 Retrieve supported language metadata.
 
-Popular languages can be requested with:
+### Popular Languages
 
 ```http
 GET /api/v1/languages?popular=true
@@ -395,7 +415,7 @@ GET /api/v1/languages?popular=true
 GET /api/v1/themes
 ```
 
-Retrieve available visual themes.
+Retrieve available theme definitions.
 
 ---
 
@@ -416,7 +436,7 @@ Example:
 
 ---
 
-## Highlight Code
+## Code Highlighting
 
 ```http
 POST /api/v1/highlight
@@ -442,20 +462,18 @@ Example:
 }
 ```
 
-The API can return:
+The API can provide:
 
 * Highlighted HTML
-* Theme CSS
+* Theme information
+* Language metadata
 * Clipboard-ready HTML
 * Embeddable HTML
-* Language metadata
-* Theme metadata
-* Line count
 * Document statistics
 
 ---
 
-## Export
+## Export API
 
 ```http
 POST /api/v1/export
@@ -469,26 +487,26 @@ SVG
 RAW
 ```
 
-PNG rendering and clipboard workflows are handled client-side.
+PNG rendering and browser clipboard workflows are handled client-side.
 
 ---
 
 # 🔐 Security & Reliability
 
-LITELY treats submitted source code as data.
+LITELY treats submitted source code as **data**.
 
-It does **not execute submitted programs**.
+Submitted programs are not executed by the application.
 
-Request and source-size limits are also applied to prevent unnecessarily large payloads.
+The application also applies request and source-size limits to prevent unnecessarily large requests.
 
 Current limits include:
 
 ```text
 Maximum request payload: 1 MB
-Maximum code length:      200,000 characters
+Maximum source-code length: 200,000 characters
 ```
 
-API responses follow a consistent structure:
+API responses use a consistent structure:
 
 ```json
 {
@@ -498,15 +516,15 @@ API responses follow a consistent structure:
 }
 ```
 
-Validation and API failures use the same structured response model.
+This keeps client-side API handling predictable across successful and failed requests.
 
 ---
 
 # 🧪 Testing
 
-The project includes automated tests covering core application functionality.
+LITELY includes automated tests covering core application behavior.
 
-Run the test suite with:
+Run the test suite:
 
 ```bash
 pytest -v
@@ -514,102 +532,47 @@ pytest -v
 
 ---
 
-# ⚡ Run Locally
+# 🛠️ Technology Stack
 
-## Requirements
+### Frontend
 
-* Python 3.10+
-* pip
+* HTML5
+* CSS3
+* JavaScript
+* CodeMirror
 
-### Clone
+### Backend
 
-```bash
-git clone <YOUR_REPOSITORY_URL>
-cd Litely-main
-```
+* Python
+* Flask
+* Pygments
+* Gunicorn
 
-### Create a virtual environment
+### Rendering & Export
 
-#### Windows
+* Pygments tokenization
+* DOM rendering
+* Canvas-based PNG generation
+* SVG generation
+* HTML generation
+* Browser Clipboard APIs
 
-```powershell
-python -m venv venv
-venv\Scripts\activate
-```
+### Testing
 
-#### macOS / Linux
+* pytest
 
-```bash
-python -m venv venv
-source venv/bin/activate
-```
+### Deployment
 
-### Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Start the application
-
-```bash
-python app.py
-```
-
-Open:
-
-```text
-http://127.0.0.1:5000
-```
+* Docker
+* Gunicorn
+* Render
 
 ---
 
-# 🐳 Docker
-
-Build the image:
-
-```bash
-docker build -t litely:1.0 .
-```
-
-Run:
-
-```bash
-docker run --rm -p 8000:8000 \
-  -e SECRET_KEY="replace-with-a-random-secret" \
-  litely:1.0
-```
-
-Open:
+# 📂 Repository Structure
 
 ```text
-http://localhost:8000
-```
-
----
-
-# 🚀 Production
-
-LITELY includes a WSGI entry point and can run with Gunicorn.
-
-Example:
-
-```bash
-FLASK_ENV=production \
-SECRET_KEY="replace-with-a-random-secret" \
-gunicorn \
-  --bind 0.0.0.0:8000 \
-  --workers 2 \
-  --timeout 30 \
-  wsgi:app
-```
-
----
-
-# 📂 Project Structure
-
-```text
-Litely/
+LITELY/
 │
 ├── app.py
 ├── wsgi.py
@@ -641,7 +604,9 @@ Litely/
 ├── static/
 │   ├── css/
 │   ├── js/
-│   └── vendor/
+│   ├── vendor/
+│   │   └── codemirror/
+│   └── assets/
 │
 ├── templates/
 │
@@ -650,36 +615,165 @@ Litely/
 
 ---
 
-# 🎯 Who Is LITELY For?
+# 💻 Local Development
 
-LITELY is useful for:
+## Requirements
 
-* 👨‍💻 Developers
-* 🎓 Students
-* 👩‍🏫 Educators
-* 📝 Technical writers
-* 📚 Documentation authors
-* 🎤 Conference speakers
-* 🧑‍💼 Engineering teams
-* 🌐 Developer advocates
-* 📖 Tutorial creators
-* 🎨 Technical content creators
+* Python 3.10+
+* pip
+
+### Clone
+
+```bash
+git clone <YOUR_REPOSITORY_URL>
+cd LITELY
+```
+
+### Create Virtual Environment
+
+#### Windows
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+```
+
+#### macOS / Linux
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run
+
+```bash
+python app.py
+```
+
+Open:
+
+```text
+http://127.0.0.1:5000
+```
 
 ---
 
-# 💡 Design Principles
+# 🐳 Docker
 
-## 1. Code remains code
+Build:
 
-A visual representation should never destroy the underlying source.
+```bash
+docker build -t litely .
+```
 
-## 2. Presentation should be fast
+Run:
 
-Going from source code to a polished visual should take seconds.
+```bash
+docker run --rm -p 8000:8000 litely
+```
 
-## 3. No lock-in
+Open:
 
-The result should remain useful outside LITELY.
+```text
+http://localhost:8000
+```
+
+---
+
+# 🚀 Production
+
+LITELY includes a WSGI entry point and can run with Gunicorn.
+
+```bash
+FLASK_ENV=production \
+SECRET_KEY="replace-with-a-random-secret" \
+gunicorn \
+  --bind 0.0.0.0:8000 \
+  --workers 2 \
+  --timeout 30 \
+  wsgi:app
+```
+
+---
+
+# 🎯 Use Cases
+
+### Developers
+
+Create polished code visuals for:
+
+* GitHub documentation
+* Technical blogs
+* Presentations
+* Developer communities
+* Architecture discussions
+
+### Students
+
+Present:
+
+* Programming assignments
+* Algorithms
+* Coding solutions
+* Project implementations
+* Technical demonstrations
+
+### Educators
+
+Create code examples for:
+
+* Lessons
+* Workshops
+* Tutorials
+* Course material
+
+### Technical Writers
+
+Generate consistent code representations for:
+
+* Documentation
+* Guides
+* Tutorials
+* Knowledge bases
+
+### Content Creators
+
+Create code visuals for:
+
+* Articles
+* Videos
+* Presentations
+* Social content
+* Developer education
+
+---
+
+# 📐 Design Principles
+
+## Code First
+
+The original source remains the source of truth.
+
+Visual styling should not require modifying the underlying code.
+
+## Fast Workflow
+
+The journey from source code to finished visual should take seconds.
+
+## Presentation Without a Design Tool
+
+Developers should not need a graphics editor to create a professional-looking code visual.
+
+## Portable Output
+
+Generated results should remain useful outside LITELY.
 
 ```text
 PNG
@@ -689,30 +783,26 @@ RAW
 CLIPBOARD
 ```
 
-## 4. Keep the workflow focused
+## Developer-Centric
 
-LITELY is intentionally centered around one problem:
-
-> **Making code easier to present and share.**
+Editing, detection, highlighting, styling, exporting, and keyboard workflows are treated as parts of one developer experience.
 
 ---
 
 # 🗺️ Roadmap
 
-Potential future improvements include:
-
-* [ ] More language detection heuristics
-* [ ] Additional export presets
-* [ ] Custom theme creation
+* [ ] Custom theme builder
+* [ ] Additional language detection improvements
+* [ ] More export presets
 * [ ] Shareable code links
-* [ ] Persistent snippets
+* [ ] Saved snippets
 * [ ] Public/private snippet collections
-* [ ] Image annotation
-* [ ] Team workspaces
-* [ ] More editor integrations
 * [ ] Browser extension
 * [ ] VS Code integration
-* [ ] API authentication and usage analytics
+* [ ] Team workspaces
+* [ ] API authentication
+* [ ] Usage analytics
+* [ ] Additional editor integrations
 
 ---
 
@@ -720,31 +810,41 @@ Potential future improvements include:
 
 **[https://litely.onrender.com/](https://litely.onrender.com/)**
 
-Try it directly in your browser.
+Open LITELY and turn your next piece of code into something worth sharing.
 
 ---
 
-# 👨‍💻 Project
-
-**LITELY**
-
-A developer-focused code visualization and export tool built with:
+# ⭐ Project Highlights
 
 ```text
-Python
-Flask
-Pygments
-CodeMirror
-JavaScript
-HTML
-CSS
-Docker
-Gunicorn
+Developer-focused editor
+        +
+Automatic language detection
+        +
+Syntax highlighting
+        +
+Custom visual themes
+        +
+Live preview
+        +
+Rich clipboard
+        +
+PNG / SVG / HTML / RAW export
+        +
+REST API
+        +
+Docker deployment
+        +
+Automated testing
 ```
+
+---
+
+## LITELY
 
 ### Beautiful code. Instantly.
 
-```
+**Write it. Style it. Share it.**
 
-**One thing I would *not* put in the README:** “Built in 2–3 hours.” That is a fantastic fact to tell an interviewer, but on GitHub it unnecessarily makes the project sound like a speed experiment. The stronger story is that you independently identified a small developer problem and shipped a deployed, API-backed, tested product quickly.
+```
 ```
